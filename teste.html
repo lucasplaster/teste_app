@@ -3,289 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbearia Premium - Agendamento</title>
+    <title>AgendaFácil - Sistema de Agendamento</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* === ESTILOS GERAIS === */
-        * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --border-radius: 12px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
         }
-        
+
         /* === HEADER === */
-        .main-header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .logo-establishment {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a202c;
-            letter-spacing: -0.025em;
-        }
-        
-        .powered-by {
-            font-size: 0.875rem;
-            color: #64748b;
-            font-weight: 500;
-        }
-        
-        /* === NAVEGAÇÃO POR ABAS ESTILO GNOME/MACOS === */
-        .nav-tabs-modern {
-            background: white;
-            border-radius: 16px;
-            padding: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: none;
-            margin-bottom: 2rem;
-        }
-        
-        .nav-tabs-modern .nav-link {
-            border: none;
-            border-radius: 12px;
-            padding: 12px 20px;
-            color: #64748b;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            background: transparent;
-        }
-        
-        .nav-tabs-modern .nav-link:hover {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-        }
-        
-        .nav-tabs-modern .nav-link.active {
-            background: #3b82f6;
-            color: white;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-        }
-        
-        /* === CARDS ESTILO MODERNO === */
-        .card-modern {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            background: white;
-        }
-        
-        .card-header-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
-            padding: 2rem;
-            border: none;
-        }
-        
-        .card-header-gradient.green {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        }
-        
-        .card-header-gradient.purple {
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-        }
-        
-        .card-header-gradient.yellow {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-        }
-        
-        .card-header-gradient.indigo {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-        }
-        
-        /* === BOTÕES ESTILO MACOS === */
-        .btn-time {
-            border: 2px solid #e2e8f0;
-            background: white;
-            color: #374151;
-            border-radius: 12px;
-            padding: 1rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn-time:hover {
-            border-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.05);
-            color: #3b82f6;
-            transform: translateY(-2px);
-        }
-        
-        .btn-time.selected {
-            background: #3b82f6;
-            border-color: #3b82f6;
-            color: white;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        .btn-modern {
-            border-radius: 12px;
-            padding: 12px 24px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: none;
-        }
-        
-        .btn-modern:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* === CARDS DE PROFISSIONAIS === */
-        .professional-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.2s ease;
-            background: white;
-        }
-        
-        .professional-card:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .professional-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 1rem;
-        }
-        
-        /* === AVALIAÇÕES === */
-        .rating-star {
-            color: #fbbf24;
-        }
-        
-        .rating-star.empty {
-            color: #d1d5db;
-        }
-        
-        .review-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 1.5rem;
-            background: white;
-            margin-bottom: 1rem;
-        }
-        
-        /* === PERFIL DO USUÁRIO === */
-        .user-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        
-        .stats-item {
+
+        .logo-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f1f5f9;
         }
-        
-        .stats-item:last-child {
-            border-bottom: none;
+
+        .logo-estabelecimento {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
-        
-        /* === SELEÇÃO DE HORÁRIO === */
-        .time-selection-alert {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        /* === BADGES === */
-        .badge-custom {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+
+        .logo-empresa {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
             font-weight: 500;
         }
-        
-        .badge-vip {
-            background: rgba(99, 102, 241, 0.1);
-            color: #4f46e5;
+
+        /* === NAVEGAÇÃO === */
+        .nav-tabs {
+            border: none;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
         }
-        
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            margin: 0 0.25rem;
+        }
+
+        .nav-tabs .nav-link:hover {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+        }
+
+        /* === CARDS === */
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background: white;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 1px solid #dee2e6;
+            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        /* === BOTÕES === */
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        }
+
+        /* === HORÁRIOS === */
+        .horario-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .horario-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .horario-item.disponivel {
+            border-color: var(--success-color);
+        }
+
+        .horario-item.ocupado {
+            border-color: var(--danger-color);
+            opacity: 0.6;
+        }
+
+        /* === PROFISSIONAIS === */
+        .profissional-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .profissional-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* === AVALIAÇÕES === */
+        .avaliacao-item {
+            padding: 1rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            background: white;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .estrelas {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        /* === PERFIL === */
+        .perfil-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .perfil-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        /* === SERVIÇOS === */
+        .servico-card {
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .servico-card:hover {
+            border-left-color: var(--success-color);
+        }
+
         /* === RESPONSIVIDADE === */
         @media (max-width: 768px) {
-            .nav-tabs-modern {
-                padding: 4px;
-                overflow-x: auto;
-                white-space: nowrap;
+            .nav-tabs {
+                flex-direction: column;
             }
             
-            .nav-tabs-modern .nav-link {
-                padding: 10px 16px;
-                font-size: 0.875rem;
+            .nav-tabs .nav-link {
+                margin: 0.25rem 0;
+                text-align: center;
             }
             
-            .time-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
             }
+            
+            .logo-empresa {
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* === ANIMAÇÕES === */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === UTILITÁRIOS === */
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shadow-custom {
+            box-shadow: var(--shadow);
         }
     </style>
 </head>
 <body>
-    <!-- === HEADER PRINCIPAL === -->
-    <header class="main-header sticky-top">
-        <div class="container-fluid">
-            <div class="row align-items-center py-3">
-                <!-- Espaço vazio à esquerda -->
-                <div class="col-md-3"></div>
-                
-                <!-- Logo do estabelecimento centralizado -->
-                <div class="col-md-6 text-center">
-                    <h1 class="logo-establishment mb-0">Barbearia Premium</h1>
-                </div>
-                
-                <!-- Logo da empresa do aplicativo -->
-                <div class="col-md-3 text-end">
-                    <span class="powered-by">Powered by BookApp</span>
+    <!-- === HEADER COM LOGOS === -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <a href="#" class="logo-estabelecimento">
+                    <i class="bi bi-shop me-2"></i>
+                    Salão Beleza & Estilo
+                </a>
+                <div class="logo-empresa">
+                    Powered by <strong>AgendaFácil</strong>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- === CONTEÚDO PRINCIPAL === -->
-    <main class="container my-4">
+    <!-- === CONTAINER PRINCIPAL === -->
+    <div class="container mt-4">
         <!-- === NAVEGAÇÃO POR ABAS === -->
-        <ul class="nav nav-tabs nav-tabs-modern" id="mainTabs" role="tablist">
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="detalhes-tab" data-bs-toggle="tab" data-bs-target="#detalhes" type="button" role="tab">
                     <i class="bi bi-info-circle me-2"></i>Detalhes
@@ -293,7 +312,12 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="servicos-tab" data-bs-toggle="tab" data-bs-target="#servicos" type="button" role="tab">
-                    <i class="bi bi-calendar-check me-2"></i>Serviços
+                    <i class="bi bi-scissors me-2"></i>Serviços
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="horarios-tab" data-bs-toggle="tab" data-bs-target="#horarios" type="button" role="tab">
+                    <i class="bi bi-calendar-check me-2"></i>Horários
                 </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -308,138 +332,238 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="perfil-tab" data-bs-toggle="tab" data-bs-target="#perfil" type="button" role="tab">
-                    <i class="bi bi-person me-2"></i>Meu Perfil
+                    <i class="bi bi-person me-2"></i>Perfil
                 </button>
             </li>
         </ul>
 
         <!-- === CONTEÚDO DAS ABAS === -->
         <div class="tab-content" id="mainTabsContent">
-            
-            <!-- === ABA DETALHES === -->
+            <!-- === ABA DETALHES DO ESTABELECIMENTO === -->
             <div class="tab-pane fade show active" id="detalhes" role="tabpanel">
-                <div class="card card-modern">
-                    <div class="card-header card-header-gradient">
-                        <h2 class="card-title mb-0">
-                            <i class="bi bi-building me-2"></i>
-                            Detalhes do Estabelecimento
-                        </h2>
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-shop me-2"></i>Informações do Estabelecimento</h5>
                     </div>
-                    <div class="card-body p-4">
-                        <p class="text-muted fs-5 mb-4">Uma barbearia moderna com os melhores profissionais da cidade.</p>
-                        
+                    <div class="card-body">
                         <div class="row">
-                            <!-- Informações de Contato -->
-                            <div class="col-md-6 mb-4">
-                                <h5 class="fw-semibold mb-3">Informações de Contato</h5>
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-geo-alt text-primary me-3 fs-5"></i>
-                                    <span>Rua das Flores, 123 - Centro</span>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-telephone text-primary me-3 fs-5"></i>
-                                    <span>(11) 99999-9999</span>
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-envelope text-primary me-3 fs-5"></i>
-                                    <span>contato@barbeariapremium.com</span>
-                                </div>
+                            <div class="col-md-6">
+                                <h6 class="text-gradient">Endereço</h6>
+                                <p><i class="bi bi-geo-alt text-primary me-2"></i>Rua das Flores, 123 - Centro<br>São Paulo, SP - CEP: 01234-567</p>
+                                
+                                <h6 class="text-gradient">Contato</h6>
+                                <p><i class="bi bi-telephone text-primary me-2"></i>(11) 98765-4321<br>
+                                <i class="bi bi-envelope text-primary me-2"></i>contato@salaobeleza.com.br</p>
                             </div>
-                            
-                            <!-- Horários de Funcionamento -->
-                            <div class="col-md-6 mb-4">
-                                <h5 class="fw-semibold mb-3">Horários de Funcionamento</h5>
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-clock text-primary me-3 fs-5"></i>
-                                    <div>
-                                        <div>Segunda a Sexta: 8h às 18h</div>
-                                        <div>Sábado: 8h às 16h</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Redes Sociais -->
-                        <div class="mt-4">
-                            <h5 class="fw-semibold mb-3">Redes Sociais</h5>
-                            <div class="d-flex gap-3">
-                                <button class="btn btn-outline-primary btn-modern">
-                                    <i class="bi bi-instagram me-2"></i>@barbeariapremium
-                                </button>
-                                <button class="btn btn-outline-primary btn-modern">
-                                    <i class="bi bi-facebook me-2"></i>Facebook
-                                </button>
-                                <button class="btn btn-outline-success btn-modern">
-                                    <i class="bi bi-whatsapp me-2"></i>WhatsApp
-                                </button>
+                            <div class="col-md-6">
+                                <h6 class="text-gradient">Horário de Funcionamento</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-clock text-primary me-2"></i>Segunda a Sexta: 9h às 18h</li>
+                                    <li><i class="bi bi-clock text-primary me-2"></i>Sábado: 8h às 17h</li>
+                                    <li><i class="bi bi-clock text-primary me-2"></i>Domingo: Fechado</li>
+                                </ul>
+                                
+                                <h6 class="text-gradient">Sobre Nós</h6>
+                                <p>Há mais de 10 anos oferecendo os melhores serviços de beleza e estética. Nossa equipe é formada por profissionais qualificados e apaixonados pelo que fazem.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- === ABA SERVIÇOS/HORÁRIOS === -->
+            <!-- === ABA SERVIÇOS === -->
             <div class="tab-pane fade" id="servicos" role="tabpanel">
-                <div class="card card-modern">
-                    <div class="card-header card-header-gradient green">
-                        <h2 class="card-title mb-0">
-                            <i class="bi bi-calendar-check me-2"></i>
-                            Horários Disponíveis
-                        </h2>
+                <div class="row">
+                    <!-- Serviço 1 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card servico-card fade-in">
+                            <div class="card-body">
+                                <h5 class="card-title text-gradient">
+                                    <i class="bi bi-scissors me-2"></i>Corte Feminino
+                                </h5>
+                                <p class="card-text">Corte personalizado com lavagem, hidratação e finalização. Inclui consultoria de estilo.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">R$ 65,00</span>
+                                    <button class="btn btn-outline-primary" onclick="verHorarios('corte-feminino')">
+                                        Ver Horários Disponíveis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body p-4">
-                        <div class="mb-4">
-                            <h5 class="fw-semibold">Hoje - 29 de Maio</h5>
-                            <p class="text-muted">Selecione um horário para agendar seu atendimento</p>
-                        </div>
-                        
-                        <!-- Grid de Horários -->
-                        <div class="row time-grid" style="--bs-gutter-x: 1rem; --bs-gutter-y: 1rem;">
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('09:00')">09:00</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('09:30')">09:30</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('10:00')">10:00</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('10:30')">10:30</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('11:00')">11:00</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('11:30')">11:30</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('14:00')">14:00</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('14:30')">14:30</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('15:00')">15:00</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('15:30')">15:30</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('16:00')">16:00</button>
-                            </div>
-                            <div class="col-lg-2 col-md-3 col-4">
-                                <button class="btn btn-time w-100" onclick="selectTime('16:30')">16:30</button>
-                            </div>
-                        </div>
 
-                        <!-- Alert de Horário Selecionado -->
-                        <div id="timeAlert" class="time-selection-alert" style="display: none;">
-                            <h6 class="text-primary fw-semibold">Horário Selecionado: <span id="selectedTimeText"></span></h6>
-                            <p class="text-primary mb-3">Clique no botão abaixo para prosseguir com o agendamento</p>
-                            <button class="btn btn-primary btn-modern" onclick="bookAppointment()">
-                                Agendar Horário
-                            </button>
+                    <!-- Serviço 2 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card servico-card fade-in">
+                            <div class="card-body">
+                                <h5 class="card-title text-gradient">
+                                    <i class="bi bi-palette me-2"></i>Coloração
+                                </h5>
+                                <p class="card-text">Coloração completa com produtos de alta qualidade. Inclui mechas, reflexos e tratamentos.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">R$ 120,00</span>
+                                    <button class="btn btn-outline-primary" onclick="verHorarios('coloracao')">
+                                        Ver Horários Disponíveis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Serviço 3 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card servico-card fade-in">
+                            <div class="card-body">
+                                <h5 class="card-title text-gradient">
+                                    <i class="bi bi-droplet me-2"></i>Hidratação
+                                </h5>
+                                <p class="card-text">Tratamento intensivo para cabelos danificados. Máscaras nutritivas e reconstrução capilar.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">R$ 45,00</span>
+                                    <button class="btn btn-outline-primary" onclick="verHorarios('hidratacao')">
+                                        Ver Horários Disponíveis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Serviço 4 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card servico-card fade-in">
+                            <div class="card-body">
+                                <h5 class="card-title text-gradient">
+                                    <i class="bi bi-brush me-2"></i>Escova Progressiva
+                                </h5>
+                                <p class="card-text">Alisamento natural que reduz o volume e facilita o penteado diário. Duração de 3-4 meses.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">R$ 180,00</span>
+                                    <button class="btn btn-outline-primary" onclick="verHorarios('escova-progressiva')">
+                                        Ver Horários Disponíveis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Serviço 5 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card servico-card fade-in">
+                            <div class="card-body">
+                                <h5 class="card-title text-gradient">
+                                    <i class="bi bi-eyeglasses me-2"></i>Design de Sobrancelhas
+                                </h5>
+                                <p class="card-text">Modelagem profissional de sobrancelhas com henna ou micropigmentação para realçar o olhar.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">R$ 35,00</span>
+                                    <button class="btn btn-outline-primary" onclick="verHorarios('design-sobrancelhas')">
+                                        Ver Horários Disponíveis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Serviço 6 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card servico-card fade-in">
+                            <div class="card-body">
+                                <h5 class="card-title text-gradient">
+                                    <i class="bi bi-hand-thumbs-up me-2"></i>Manicure e Pedicure
+                                </h5>
+                                <p class="card-text">Cuidados completos para unhas das mãos e pés. Inclui esmaltação tradicional ou em gel.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">R$ 40,00</span>
+                                    <button class="btn btn-outline-primary" onclick="verHorarios('manicure-pedicure')">
+                                        Ver Horários Disponíveis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === ABA HORÁRIOS DISPONÍVEIS === -->
+            <div class="tab-pane fade" id="horarios" role="tabpanel">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-calendar-check me-2"></i>Horários Disponíveis - Hoje</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-gradient">Manhã</h6>
+                                <div class="horario-item disponivel">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>09:00</strong>
+                                            <small class="text-muted d-block">Disponível</small>
+                                        </div>
+                                        <button class="btn btn-success btn-sm" onclick="agendarHorario('09:00')">
+                                            Agendar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="horario-item disponivel">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>10:30</strong>
+                                            <small class="text-muted d-block">Disponível</small>
+                                        </div>
+                                        <button class="btn btn-success btn-sm" onclick="agendarHorario('10:30')">
+                                            Agendar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="horario-item ocupado">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>11:00</strong>
+                                            <small class="text-danger d-block">Ocupado</small>
+                                        </div>
+                                        <button class="btn btn-secondary btn-sm" disabled>
+                                            Indisponível
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-gradient">Tarde</h6>
+                                <div class="horario-item disponivel">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>14:00</strong>
+                                            <small class="text-muted d-block">Disponível</small>
+                                        </div>
+                                        <button class="btn btn-success btn-sm" onclick="agendarHorario('14:00')">
+                                            Agendar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="horario-item disponivel">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>15:30</strong>
+                                            <small class="text-muted d-block">Disponível</small>
+                                        </div>
+                                        <button class="btn btn-success btn-sm" onclick="agendarHorario('15:30')">
+                                            Agendar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="horario-item disponivel">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>17:00</strong>
+                                            <small class="text-muted d-block">Disponível</small>
+                                        </div>
+                                        <button class="btn btn-success btn-sm" onclick="agendarHorario('17:00')">
+                                            Agendar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -447,70 +571,55 @@
 
             <!-- === ABA PROFISSIONAIS === -->
             <div class="tab-pane fade" id="profissionais" role="tabpanel">
-                <div class="card card-modern">
-                    <div class="card-header card-header-gradient purple">
-                        <h2 class="card-title mb-0">
-                            <i class="bi bi-people me-2"></i>
-                            Nossa Equipe
-                        </h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card profissional-card fade-in">
+                            <div class="card-body">
+                                <div class="profissional-avatar">M</div>
+                                <h5 class="card-title text-gradient">Maria Silva</h5>
+                                <p class="card-text">Cabeleireira especialista em coloração e cortes modernos. 8 anos de experiência.</p>
+                                <div class="estrelas mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <small class="text-muted">156 avaliações</small>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <!-- Profissional 1 -->
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="professional-card">
-                                    <div class="professional-avatar">CS</div>
-                                    <h5 class="fw-semibold">Carlos Silva</h5>
-                                    <p class="text-purple fw-medium mb-2">Barbeiro Senior</p>
-                                    <p class="text-muted small mb-3">8 anos de experiência</p>
-                                    <div class="d-flex justify-content-center align-items-center mb-3">
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <span class="ms-2 text-muted small">4.9</span>
-                                    </div>
-                                    <button class="btn btn-outline-primary btn-modern btn-sm">Ver Perfil</button>
+                    <div class="col-md-4 mb-4">
+                        <div class="card profissional-card fade-in">
+                            <div class="card-body">
+                                <div class="profissional-avatar">J</div>
+                                <h5 class="card-title text-gradient">João Santos</h5>
+                                <p class="card-text">Barbeiro e cabeleireiro masculino. Especialista em cortes clássicos e modernos.</p>
+                                <div class="estrelas mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
                                 </div>
+                                <small class="text-muted">89 avaliações</small>
                             </div>
-                            
-                            <!-- Profissional 2 -->
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="professional-card">
-                                    <div class="professional-avatar">JS</div>
-                                    <h5 class="fw-semibold">João Santos</h5>
-                                    <p class="text-purple fw-medium mb-2">Especialista em Barba</p>
-                                    <p class="text-muted small mb-3">5 anos de experiência</p>
-                                    <div class="d-flex justify-content-center align-items-center mb-3">
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <span class="ms-2 text-muted small">4.8</span>
-                                    </div>
-                                    <button class="btn btn-outline-primary btn-modern btn-sm">Ver Perfil</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card profissional-card fade-in">
+                            <div class="card-body">
+                                <div class="profissional-avatar">A</div>
+                                <h5 class="card-title text-gradient">Ana Costa</h5>
+                                <p class="card-text">Manicure e designer de sobrancelhas. Especialista em nail art e micropigmentação.</p>
+                                <div class="estrelas mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 </div>
-                            </div>
-                            
-                            <!-- Profissional 3 -->
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="professional-card">
-                                    <div class="professional-avatar">PC</div>
-                                    <h5 class="fw-semibold">Pedro Costa</h5>
-                                    <p class="text-purple fw-medium mb-2">Barbeiro Tradicional</p>
-                                    <p class="text-muted small mb-3">10 anos de experiência</p>
-                                    <div class="d-flex justify-content-center align-items-center mb-3">
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <span class="ms-2 text-muted small">4.9</span>
-                                    </div>
-                                    <button class="btn btn-outline-primary btn-modern btn-sm">Ver Perfil</button>
-                                </div>
+                                <small class="text-muted">201 avaliações</small>
                             </div>
                         </div>
                     </div>
@@ -519,273 +628,247 @@
 
             <!-- === ABA AVALIAÇÕES === -->
             <div class="tab-pane fade" id="avaliacoes" role="tabpanel">
-                <div class="card card-modern">
-                    <div class="card-header card-header-gradient yellow">
-                        <h2 class="card-title mb-0">
-                            <i class="bi bi-star me-2"></i>
-                            Avaliações dos Clientes
-                        </h2>
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-star me-2"></i>Avaliações dos Clientes</h5>
                     </div>
-                    <div class="card-body p-4">
-                        <!-- Média de Avaliações -->
-                        <div class="text-center mb-5">
-                            <div class="display-4 fw-bold text-dark mb-2">4.9</div>
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <i class="bi bi-star-fill rating-star"></i>
-                                <i class="bi bi-star-fill rating-star"></i>
-                                <i class="bi bi-star-fill rating-star"></i>
-                                <i class="bi bi-star-fill rating-star"></i>
-                                <i class="bi bi-star-fill rating-star"></i>
-                            </div>
-                            <p class="text-muted">Baseado em 156 avaliações</p>
-                        </div>
-
-                        <!-- Lista de Avaliações -->
-                        <div class="review-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h6 class="fw-semibold mb-1">Maria Silva</h6>
-                                    <div class="d-flex">
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                    </div>
+                    <div class="card-body">
+                        <div class="avaliacao-item">
+                            <div class="d-flex justify-content-between">
+                                <strong>Fernanda Lima</strong>
+                                <div class="estrelas">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 </div>
-                                <span class="badge bg-light text-dark">15/03/2024</span>
                             </div>
-                            <p class="text-muted mb-0">Excelente atendimento! Profissionais muito qualificados.</p>
+                            <p class="mb-1">"Excelente atendimento! Maria fez um trabalho incrível no meu cabelo. Super recomendo!"</p>
+                            <small class="text-muted">Há 2 dias</small>
                         </div>
-
-                        <div class="review-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h6 class="fw-semibold mb-1">José Santos</h6>
-                                    <div class="d-flex">
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                    </div>
+                        
+                        <div class="avaliacao-item">
+                            <div class="d-flex justify-content-between">
+                                <strong>Carlos Eduardo</strong>
+                                <div class="estrelas">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
                                 </div>
-                                <span class="badge bg-light text-dark">12/03/2024</span>
                             </div>
-                            <p class="text-muted mb-0">Sempre saio satisfeito. Recomendo a todos!</p>
+                            <p class="mb-1">"João é muito profissional. Corte ficou perfeito e o ambiente é muito agradável."</p>
+                            <small class="text-muted">Há 5 dias</small>
                         </div>
-
-                        <div class="review-card">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h6 class="fw-semibold mb-1">Ana Costa</h6>
-                                    <div class="d-flex">
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star-fill rating-star"></i>
-                                        <i class="bi bi-star empty"></i>
-                                    </div>
+                        
+                        <div class="avaliacao-item">
+                            <div class="d-flex justify-content-between">
+                                <strong>Patricia Rocha</strong>
+                                <div class="estrelas">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 </div>
-                                <span class="badge bg-light text-dark">10/03/2024</span>
                             </div>
-                            <p class="text-muted mb-0">Bom serviço, ambiente agradável.</p>
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <button class="btn btn-outline-warning btn-modern">Ver Mais Avaliações</button>
+                            <p class="mb-1">"Ana é uma artista! Minhas unhas ficaram lindas e as sobrancelhas perfeitas. Voltarei sempre!"</p>
+                            <small class="text-muted">Há 1 semana</small>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- === ABA PERFIL === -->
+            <!-- === ABA PERFIL DO USUÁRIO === -->
             <div class="tab-pane fade" id="perfil" role="tabpanel">
-                <div class="card card-modern">
-                    <div class="card-header card-header-gradient indigo">
-                        <h2 class="card-title mb-0">
-                            <i class="bi bi-person me-2"></i>
-                            Meu Perfil
-                        </h2>
+                <div class="perfil-section fade-in">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="perfil-avatar">U</div>
+                            <h4 class="text-gradient">Usuário</h4>
+                            <p class="text-muted">Cliente desde Março 2023</p>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="text-gradient">Informações Pessoais</h5>
+                            <form>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nome</label>
+                                        <input type="text" class="form-control" value="Nome do Usuário">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">E-mail</label>
+                                        <input type="email" class="form-control" value="usuario@email.com">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Telefone</label>
+                                        <input type="tel" class="form-control" value="(11) 99999-9999">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Data de Nascimento</label>
+                                        <input type="date" class="form-control" value="1990-01-01">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle me-2"></i>Salvar Alterações
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="card-body p-4">
-                        <!-- Header do Perfil -->
-                        <div class="d-flex align-items-center mb-5">
-                            <div class="user-avatar me-4">JS</div>
-                            <div>
-                                <h3 class="fw-bold mb-1">João Silva</h3>
-                                <p class="text-muted mb-2">Cliente desde 2023</p>
-                                <span class="badge badge-custom badge-vip">Cliente VIP</span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- Informações Pessoais -->
-                            <div class="col-md-6 mb-4">
-                                <h5 class="fw-semibold mb-3">Informações Pessoais</h5>
-                                <div class="mb-3">
-                                    <small class="text-muted fw-medium">Email</small>
-                                    <p class="mb-0">joao.silva@email.com</p>
-                                </div>
-                                <div class="mb-3">
-                                    <small class="text-muted fw-medium">Telefone</small>
-                                    <p class="mb-0">(11) 98765-4321</p>
-                                </div>
-                                <div class="mb-3">
-                                    <small class="text-muted fw-medium">Data de Nascimento</small>
-                                    <p class="mb-0">15/03/1990</p>
-                                </div>
-                            </div>
-
-                            <!-- Estatísticas -->
-                            <div class="col-md-6 mb-4">
-                                <h5 class="fw-semibold mb-3">Estatísticas</h5>
-                                <div class="stats-item">
-                                    <span class="text-muted">Agendamentos realizados</span>
-                                    <span class="fw-semibold">24</span>
-                                </div>
-                                <div class="stats-item">
-                                    <span class="text-muted">Próximo agendamento</span>
-                                    <span class="fw-semibold">30/05 às 14h</span>
-                                </div>
-                                <div class="stats-item">
-                                    <span class="text-muted">Pontos de fidelidade</span>
-                                    <span class="fw-semibold text-primary">320 pts</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Botões de Ação -->
-                        <div class="d-flex gap-3 mt-4">
-                            <button class="btn btn-primary btn-modern">Editar Perfil</button>
-                            <button class="btn btn-outline-primary btn-modern">Histórico de Agendamentos</button>
-                        </div>
+                </div>
+                
+                <div class="perfil-section">
+                    <h5 class="text-gradient">Histórico de Agendamentos</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Serviço</th>
+                                    <th>Profissional</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15/12/2023</td>
+                                    <td>Corte + Coloração</td>
+                                    <td>Maria Silva</td>
+                                    <td><span class="badge bg-success">Concluído</span></td>
+                                </tr>
+                                <tr>
+                                    <td>20/12/2023</td>
+                                    <td>Manicure</td>
+                                    <td>Ana Costa</td>
+                                    <td><span class="badge bg-warning">Agendado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
+    <!-- === SCRIPTS === -->
+    <!-- Lovable script tag for new features -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- JavaScript personalizado -->
     <script>
-        // === JAVASCRIPT PARA FUNCIONALIDADES === 
-        
-        // Variável global para armazenar o horário selecionado
-        let selectedTime = null;
-        
-        /**
-         * Função para selecionar um horário
-         * @param {string} time - O horário selecionado (ex: "09:00")
-         */
-        function selectTime(time) {
-            // Remove seleção anterior
-            document.querySelectorAll('.btn-time').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Adiciona seleção ao botão clicado
-            event.target.classList.add('selected');
-            
-            // Armazena o horário selecionado
-            selectedTime = time;
-            
-            // Mostra o alert de horário selecionado
-            const timeAlert = document.getElementById('timeAlert');
-            const selectedTimeText = document.getElementById('selectedTimeText');
-            
-            selectedTimeText.textContent = time;
-            timeAlert.style.display = 'block';
-            
-            // Scroll suave até o alert
-            timeAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // === FUNÇÕES DE AGENDAMENTO ===
+        function agendarHorario(horario) {
+            // Aqui você implementará a navegação para a página de agendamento
+            alert(`Redirecionando para agendamento do horário: ${horario}`);
+            // window.location.href = `agendamento.html?horario=${horario}`;
         }
-        
-        /**
-         * Função para agendar o horário selecionado
-         */
-        function bookAppointment() {
-            if (selectedTime) {
-                // Aqui você adicionaria a lógica para navegar para a página de agendamento
-                // ou fazer uma requisição para o backend
-                alert(`Redirecionando para agendamento do horário ${selectedTime}`);
-                
-                // Exemplo de como você poderia redirecionar para uma página de agendamento:
-                // window.location.href = `agendamento.html?horario=${selectedTime}`;
-            } else {
-                alert('Por favor, selecione um horário primeiro.');
-            }
+
+        function verHorarios(servico) {
+            // Função para ver horários específicos de um serviço
+            alert(`Redirecionando para horários disponíveis do serviço: ${servico}`);
+            // Aqui você pode redirecionar para uma página específica ou filtrar horários
+            // window.location.href = `horarios.html?servico=${servico}`;
         }
-        
-        /**
-         * Função para inicializar eventos da página
-         */
-        function initializeApp() {
-            console.log('Aplicativo de agendamento inicializado');
-            
-            // Adiciona listeners para as abas
-            const tabTriggers = document.querySelectorAll('[data-bs-toggle="tab"]');
-            tabTriggers.forEach(trigger => {
-                trigger.addEventListener('shown.bs.tab', function (event) {
-                    console.log(`Aba ativa: ${event.target.getAttribute('data-bs-target')}`);
+
+        // === ANIMAÇÕES E EFEITOS ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona efeito fade-in aos cards quando as abas são ativadas
+            const tabLinks = document.querySelectorAll('.nav-link');
+            tabLinks.forEach(link => {
+                link.addEventListener('shown.bs.tab', function() {
+                    const targetTab = document.querySelector(this.getAttribute('data-bs-target'));
+                    const cards = targetTab.querySelectorAll('.card, .perfil-section');
+                    cards.forEach((card, index) => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.5s ease';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
                 });
             });
-            
-            // Reset da seleção de horário quando muda de aba
-            const servicosTab = document.getElementById('servicos-tab');
-            servicosTab.addEventListener('shown.bs.tab', function() {
-                // Reset seleção de horário
-                selectedTime = null;
-                document.querySelectorAll('.btn-time').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                document.getElementById('timeAlert').style.display = 'none';
-            });
-        }
-        
-        // Inicializa o aplicativo quando a página carrega
-        document.addEventListener('DOMContentLoaded', initializeApp);
-        
-        /**
-         * Função para simular navegação entre páginas/seções
-         * @param {string} section - Seção para navegar
-         */
-        function navigateTo(section) {
-            const tabButton = document.querySelector(`#${section}-tab`);
-            if (tabButton) {
-                const tab = new bootstrap.Tab(tabButton);
-                tab.show();
-            }
-        }
-        
-        /**
-         * Funções auxiliares para interações da interface
-         */
-        
-        // Simula clique em redes sociais
-        document.addEventListener('click', function(event) {
-            if (event.target.closest('.btn-outline-primary') && event.target.textContent.includes('Instagram')) {
-                alert('Abrindo Instagram: @barbeariapremium');
-            }
-            if (event.target.closest('.btn-outline-primary') && event.target.textContent.includes('Facebook')) {
-                alert('Abrindo página do Facebook');
-            }
-            if (event.target.closest('.btn-outline-success') && event.target.textContent.includes('WhatsApp')) {
-                alert('Abrindo WhatsApp: (11) 99999-9999');
-            }
-        });
-        
-        // Adiciona animação suave ao scroll para dispositivos móveis
-        if (window.innerWidth <= 768) {
-            const style = document.createElement('style');
-            style.textContent = `
-                html {
-                    scroll-behavior: smooth;
+
+            // Efeito hover nos cards de horário
+            const horarioItems = document.querySelectorAll('.horario-item');
+            horarioItems.forEach(item => {
+                if (item.classList.contains('disponivel')) {
+                    item.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-2px)';
+                        this.style.boxShadow = '0 4px 20px rgba(0,123,255,0.15)';
+                    });
+                    item.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = 'none';
+                    });
                 }
-            `;
-            document.head.appendChild(style);
+            });
+
+            // Efeito de loading nos botões
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="bi bi-arrow-clockwise me-2"></i>Carregando...';
+                        this.disabled = true;
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.disabled = false;
+                        }, 1500);
+                    }
+                });
+            });
+        });
+
+        // === VALIDAÇÃO DE FORMULÁRIO ===
+        function validarFormulario() {
+            const form = document.querySelector('#perfil form');
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            return isValid;
         }
+
+        // === NOTIFICAÇÕES ===
+        function mostrarNotificacao(mensagem, tipo = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${tipo} alert-dismissible fade show position-fixed`;
+            alertDiv.style.top = '20px';
+            alertDiv.style.right = '20px';
+            alertDiv.style.zIndex = '9999';
+            alertDiv.innerHTML = `
+                ${mensagem}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // === INICIALIZAÇÃO ===
+        console.log('AgendaFácil - Sistema de Agendamento carregado com sucesso!');
     </script>
 </body>
 </html>
