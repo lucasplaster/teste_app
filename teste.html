@@ -1,136 +1,791 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Teste Aplicação</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Premium - Agendamento</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === ESTILOS GERAIS === */
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        /* === HEADER === */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo-establishment {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.025em;
+        }
+        
+        .powered-by {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        /* === NAVEGAÇÃO POR ABAS ESTILO GNOME/MACOS === */
+        .nav-tabs-modern {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-tabs-modern .nav-link {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: #64748b;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+        
+        .nav-tabs-modern .nav-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .nav-tabs-modern .nav-link.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* === CARDS ESTILO MODERNO === */
+        .card-modern {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            background: white;
+        }
+        
+        .card-header-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 2rem;
+            border: none;
+        }
+        
+        .card-header-gradient.green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .card-header-gradient.purple {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+        
+        .card-header-gradient.yellow {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .card-header-gradient.indigo {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        }
+        
+        /* === BOTÕES ESTILO MACOS === */
+        .btn-time {
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #374151;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-time:hover {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .btn-time.selected {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-modern {
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .btn-modern:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* === CARDS DE PROFISSIONAIS === */
+        .professional-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .professional-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .professional-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        
+        /* === AVALIAÇÕES === */
+        .rating-star {
+            color: #fbbf24;
+        }
+        
+        .rating-star.empty {
+            color: #d1d5db;
+        }
+        
+        .review-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            background: white;
+            margin-bottom: 1rem;
+        }
+        
+        /* === PERFIL DO USUÁRIO === */
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* === SELEÇÃO DE HORÁRIO === */
+        .time-selection-alert {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* === BADGES === */
+        .badge-custom {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .badge-vip {
+            background: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+        }
+        
+        /* === RESPONSIVIDADE === */
+        @media (max-width: 768px) {
+            .nav-tabs-modern {
+                padding: 4px;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .nav-tabs-modern .nav-link {
+                padding: 10px 16px;
+                font-size: 0.875rem;
+            }
+            
+            .time-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+    </style>
 </head>
-<body class="bg-dark text-white">
+<body>
+    <!-- === HEADER PRINCIPAL === -->
+    <header class="main-header sticky-top">
+        <div class="container-fluid">
+            <div class="row align-items-center py-3">
+                <!-- Espaço vazio à esquerda -->
+                <div class="col-md-3"></div>
+                
+                <!-- Logo do estabelecimento centralizado -->
+                <div class="col-md-6 text-center">
+                    <h1 class="logo-establishment mb-0">Barbearia Premium</h1>
+                </div>
+                
+                <!-- Logo da empresa do aplicativo -->
+                <div class="col-md-3 text-end">
+                    <span class="powered-by">Powered by BookApp</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<div class="container mt-5">
-  <!-- Abas responsivas com rolagem -->
-  <ul class="nav nav-tabs  flex-nowrap" style="white-space: nowrap;" id="abasPersonalizadas" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="tab-detalhes" data-bs-toggle="tab" data-bs-target="#conteudo-detalhes"
-              type="button" role="tab" aria-controls="conteudo-detalhes" aria-selected="true">Detalhes</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-servicos" data-bs-toggle="tab" data-bs-target="#conteudo-servicos"
-              type="button" role="tab" aria-controls="conteudo-servicos" aria-selected="false">Serviços</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-profissionais" data-bs-toggle="tab" data-bs-target="#conteudo-profissionais"
-              type="button" role="tab" aria-controls="conteudo-profissionais" aria-selected="false">Profissionais</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-avaliacoes" data-bs-toggle="tab" data-bs-target="#conteudo-avaliacoes"
-              type="button" role="tab" aria-controls="conteudo-avaliacoes" aria-selected="false">Avaliações</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-meu-perfil" data-bs-toggle="tab" data-bs-target="#conteudo-meu-perfil"
-              type="button" role="tab" aria-controls="conteudo-meu-perfil" aria-selected="false">Meu Perfil</button>
-    </li>
-  </ul>
+    <!-- === CONTEÚDO PRINCIPAL === -->
+    <main class="container my-4">
+        <!-- === NAVEGAÇÃO POR ABAS === -->
+        <ul class="nav nav-tabs nav-tabs-modern" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="detalhes-tab" data-bs-toggle="tab" data-bs-target="#detalhes" type="button" role="tab">
+                    <i class="bi bi-info-circle me-2"></i>Detalhes
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="servicos-tab" data-bs-toggle="tab" data-bs-target="#servicos" type="button" role="tab">
+                    <i class="bi bi-calendar-check me-2"></i>Serviços
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profissionais-tab" data-bs-toggle="tab" data-bs-target="#profissionais" type="button" role="tab">
+                    <i class="bi bi-people me-2"></i>Profissionais
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="avaliacoes-tab" data-bs-toggle="tab" data-bs-target="#avaliacoes" type="button" role="tab">
+                    <i class="bi bi-star me-2"></i>Avaliações
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="perfil-tab" data-bs-toggle="tab" data-bs-target="#perfil" type="button" role="tab">
+                    <i class="bi bi-person me-2"></i>Meu Perfil
+                </button>
+            </li>
+        </ul>
 
-  <!-- Conteúdo das Abas -->
-  <div class="tab-content mt-3" id="conteudoAbas">
-    <div class="tab-pane fade show active" id="conteudo-detalhes" role="tabpanel" aria-labelledby="tab-detalhes">
-      <h4>Detalhes</h4>
-      <p>Informações detalhadas sobre o serviço ou produto.</p>
-    </div>
-    <div class="tab-pane fade" id="conteudo-servicos" role="tabpanel" aria-labelledby="tab-servicos">
-      <h4>Serviços</h4>
-      <p>Lista de serviços disponíveis.</p>
+        <!-- === CONTEÚDO DAS ABAS === -->
+        <div class="tab-content" id="mainTabsContent">
+            
+            <!-- === ABA DETALHES === -->
+            <div class="tab-pane fade show active" id="detalhes" role="tabpanel">
+                <div class="card card-modern">
+                    <div class="card-header card-header-gradient">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-building me-2"></i>
+                            Detalhes do Estabelecimento
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted fs-5 mb-4">Uma barbearia moderna com os melhores profissionais da cidade.</p>
+                        
+                        <div class="row">
+                            <!-- Informações de Contato -->
+                            <div class="col-md-6 mb-4">
+                                <h5 class="fw-semibold mb-3">Informações de Contato</h5>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-geo-alt text-primary me-3 fs-5"></i>
+                                    <span>Rua das Flores, 123 - Centro</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-telephone text-primary me-3 fs-5"></i>
+                                    <span>(11) 99999-9999</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-envelope text-primary me-3 fs-5"></i>
+                                    <span>contato@barbeariapremium.com</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Horários de Funcionamento -->
+                            <div class="col-md-6 mb-4">
+                                <h5 class="fw-semibold mb-3">Horários de Funcionamento</h5>
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-clock text-primary me-3 fs-5"></i>
+                                    <div>
+                                        <div>Segunda a Sexta: 8h às 18h</div>
+                                        <div>Sábado: 8h às 16h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="mb-2 card bg-secondary text-white">
-        <div class="card-body d-flex align-items-center justify-content-between">
-        <!-- Imagem à esquerda -->
-        <img src="https://via.placeholder.com/80" class="me-3 rounded" alt="Imagem" style="width: 80px; height: 80px; object-fit: cover;">
-        <!-- Texto central -->
-        <div class="flex-grow-1">
-        <h5 class="card-title mb-1">Corte</h5>
-        <p class="card-text mb-0">Estilo personalizado para realçar sua identidade, com atenção aos detalhes e técnicas modernas.</p>
-        </div>
-        <!-- Botão à direita -->
-        <button type="button" class="btn btn-primary ms-3">Agendar</button>
-        </div>
-        </div>
+                        <!-- Redes Sociais -->
+                        <div class="mt-4">
+                            <h5 class="fw-semibold mb-3">Redes Sociais</h5>
+                            <div class="d-flex gap-3">
+                                <button class="btn btn-outline-primary btn-modern">
+                                    <i class="bi bi-instagram me-2"></i>@barbeariapremium
+                                </button>
+                                <button class="btn btn-outline-primary btn-modern">
+                                    <i class="bi bi-facebook me-2"></i>Facebook
+                                </button>
+                                <button class="btn btn-outline-success btn-modern">
+                                    <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="mb-2 card bg-secondary text-white">
-        <div class="card-body d-flex align-items-center justify-content-between">
-        <!-- Imagem à esquerda -->
-        <img src="https://via.placeholder.com/80" class="me-3 rounded" alt="Imagem" style="width: 80px; height: 80px; object-fit: cover;">
-        <!-- Texto central -->
-        <div class="flex-grow-1">
-        <h5 class="card-title mb-1">Barba</h5>
-        <p class="card-text mb-0">Vamos deixar sua barba alinhada e com acabamento perfeito.</p>
-        </div>
-        <!-- Botão à direita -->
-        <button type="button" class="btn btn-primary ms-3">Agendar</button>
-        </div>
-        </div>
+            <!-- === ABA SERVIÇOS/HORÁRIOS === -->
+            <div class="tab-pane fade" id="servicos" role="tabpanel">
+                <div class="card card-modern">
+                    <div class="card-header card-header-gradient green">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-calendar-check me-2"></i>
+                            Horários Disponíveis
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="mb-4">
+                            <h5 class="fw-semibold">Hoje - 29 de Maio</h5>
+                            <p class="text-muted">Selecione um horário para agendar seu atendimento</p>
+                        </div>
+                        
+                        <!-- Grid de Horários -->
+                        <div class="row time-grid" style="--bs-gutter-x: 1rem; --bs-gutter-y: 1rem;">
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('09:00')">09:00</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('09:30')">09:30</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('10:00')">10:00</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('10:30')">10:30</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('11:00')">11:00</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('11:30')">11:30</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('14:00')">14:00</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('14:30')">14:30</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('15:00')">15:00</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('15:30')">15:30</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('16:00')">16:00</button>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-4">
+                                <button class="btn btn-time w-100" onclick="selectTime('16:30')">16:30</button>
+                            </div>
+                        </div>
 
-        <div class="mb-2 card bg-secondary text-white">
-        <div class="card-body d-flex align-items-center justify-content-between">
-        <!-- Imagem à esquerda -->
-        <img src="https://via.placeholder.com/80" class="me-3 rounded" alt="Imagem" style="width: 80px; height: 80px; object-fit: cover;">
-        <!-- Texto central -->
-        <div class="flex-grow-1">
-        <h5 class="card-title mb-1">Barbear classico</h5>
-        <p class="card-text mb-0">A tradicional navalha para um barbear rente e confortável.</p>
-        </div>
-        <!-- Botão à direita -->
-        <button type="button" class="btn btn-primary ms-3">Agendar</button>
-        </div>
-        </div>
+                        <!-- Alert de Horário Selecionado -->
+                        <div id="timeAlert" class="time-selection-alert" style="display: none;">
+                            <h6 class="text-primary fw-semibold">Horário Selecionado: <span id="selectedTimeText"></span></h6>
+                            <p class="text-primary mb-3">Clique no botão abaixo para prosseguir com o agendamento</p>
+                            <button class="btn btn-primary btn-modern" onclick="bookAppointment()">
+                                Agendar Horário
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="mb-2 card bg-secondary text-white">
-        <div class="card-body d-flex align-items-center justify-content-between">
-        <!-- Imagem à esquerda -->
-        <img src="https://via.placeholder.com/80" class="me-3 rounded" alt="Imagem" style="width: 80px; height: 80px; object-fit: cover;">
-        <!-- Texto central -->
-        <div class="flex-grow-1">
-        <h5 class="card-title mb-1">Design de sombrancelhas</h5>
-        <p class="card-text mb-0">Ajuste e definição para realçar seu olhar.</p>
-        </div>
-        <!-- Botão à direita -->
-        <button type="button" class="btn btn-primary ms-3">Agendar</button>
-        </div>
-        </div>
+            <!-- === ABA PROFISSIONAIS === -->
+            <div class="tab-pane fade" id="profissionais" role="tabpanel">
+                <div class="card card-modern">
+                    <div class="card-header card-header-gradient purple">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-people me-2"></i>
+                            Nossa Equipe
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <!-- Profissional 1 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="professional-card">
+                                    <div class="professional-avatar">CS</div>
+                                    <h5 class="fw-semibold">Carlos Silva</h5>
+                                    <p class="text-purple fw-medium mb-2">Barbeiro Senior</p>
+                                    <p class="text-muted small mb-3">8 anos de experiência</p>
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <span class="ms-2 text-muted small">4.9</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-modern btn-sm">Ver Perfil</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Profissional 2 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="professional-card">
+                                    <div class="professional-avatar">JS</div>
+                                    <h5 class="fw-semibold">João Santos</h5>
+                                    <p class="text-purple fw-medium mb-2">Especialista em Barba</p>
+                                    <p class="text-muted small mb-3">5 anos de experiência</p>
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <span class="ms-2 text-muted small">4.8</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-modern btn-sm">Ver Perfil</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Profissional 3 -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="professional-card">
+                                    <div class="professional-avatar">PC</div>
+                                    <h5 class="fw-semibold">Pedro Costa</h5>
+                                    <p class="text-purple fw-medium mb-2">Barbeiro Tradicional</p>
+                                    <p class="text-muted small mb-3">10 anos de experiência</p>
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <span class="ms-2 text-muted small">4.9</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-modern btn-sm">Ver Perfil</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="mb-2 card bg-secondary text-white">
-        <div class="card-body d-flex align-items-center justify-content-between">
-        <!-- Imagem à esquerda -->
-        <img src="https://via.placeholder.com/80" class="me-3 rounded" alt="Imagem" style="width: 80px; height: 80px; object-fit: cover;">
-        <!-- Texto central -->
-        <div class="flex-grow-1">
-        <h5 class="card-title mb-1">Tratamento Capilar</h5>
-        <p class="card-text mb-0">Hidratação e cuidados especiais para manter o cabelo saudável.</p>
+            <!-- === ABA AVALIAÇÕES === -->
+            <div class="tab-pane fade" id="avaliacoes" role="tabpanel">
+                <div class="card card-modern">
+                    <div class="card-header card-header-gradient yellow">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-star me-2"></i>
+                            Avaliações dos Clientes
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Média de Avaliações -->
+                        <div class="text-center mb-5">
+                            <div class="display-4 fw-bold text-dark mb-2">4.9</div>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <i class="bi bi-star-fill rating-star"></i>
+                                <i class="bi bi-star-fill rating-star"></i>
+                                <i class="bi bi-star-fill rating-star"></i>
+                                <i class="bi bi-star-fill rating-star"></i>
+                                <i class="bi bi-star-fill rating-star"></i>
+                            </div>
+                            <p class="text-muted">Baseado em 156 avaliações</p>
+                        </div>
+
+                        <!-- Lista de Avaliações -->
+                        <div class="review-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="fw-semibold mb-1">Maria Silva</h6>
+                                    <div class="d-flex">
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                    </div>
+                                </div>
+                                <span class="badge bg-light text-dark">15/03/2024</span>
+                            </div>
+                            <p class="text-muted mb-0">Excelente atendimento! Profissionais muito qualificados.</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="fw-semibold mb-1">José Santos</h6>
+                                    <div class="d-flex">
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                    </div>
+                                </div>
+                                <span class="badge bg-light text-dark">12/03/2024</span>
+                            </div>
+                            <p class="text-muted mb-0">Sempre saio satisfeito. Recomendo a todos!</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="fw-semibold mb-1">Ana Costa</h6>
+                                    <div class="d-flex">
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star-fill rating-star"></i>
+                                        <i class="bi bi-star empty"></i>
+                                    </div>
+                                </div>
+                                <span class="badge bg-light text-dark">10/03/2024</span>
+                            </div>
+                            <p class="text-muted mb-0">Bom serviço, ambiente agradável.</p>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-outline-warning btn-modern">Ver Mais Avaliações</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === ABA PERFIL === -->
+            <div class="tab-pane fade" id="perfil" role="tabpanel">
+                <div class="card card-modern">
+                    <div class="card-header card-header-gradient indigo">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-person me-2"></i>
+                            Meu Perfil
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Header do Perfil -->
+                        <div class="d-flex align-items-center mb-5">
+                            <div class="user-avatar me-4">JS</div>
+                            <div>
+                                <h3 class="fw-bold mb-1">João Silva</h3>
+                                <p class="text-muted mb-2">Cliente desde 2023</p>
+                                <span class="badge badge-custom badge-vip">Cliente VIP</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Informações Pessoais -->
+                            <div class="col-md-6 mb-4">
+                                <h5 class="fw-semibold mb-3">Informações Pessoais</h5>
+                                <div class="mb-3">
+                                    <small class="text-muted fw-medium">Email</small>
+                                    <p class="mb-0">joao.silva@email.com</p>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted fw-medium">Telefone</small>
+                                    <p class="mb-0">(11) 98765-4321</p>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted fw-medium">Data de Nascimento</small>
+                                    <p class="mb-0">15/03/1990</p>
+                                </div>
+                            </div>
+
+                            <!-- Estatísticas -->
+                            <div class="col-md-6 mb-4">
+                                <h5 class="fw-semibold mb-3">Estatísticas</h5>
+                                <div class="stats-item">
+                                    <span class="text-muted">Agendamentos realizados</span>
+                                    <span class="fw-semibold">24</span>
+                                </div>
+                                <div class="stats-item">
+                                    <span class="text-muted">Próximo agendamento</span>
+                                    <span class="fw-semibold">30/05 às 14h</span>
+                                </div>
+                                <div class="stats-item">
+                                    <span class="text-muted">Pontos de fidelidade</span>
+                                    <span class="fw-semibold text-primary">320 pts</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-flex gap-3 mt-4">
+                            <button class="btn btn-primary btn-modern">Editar Perfil</button>
+                            <button class="btn btn-outline-primary btn-modern">Histórico de Agendamentos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Botão à direita -->
-        <button type="button" class="btn btn-primary ms-3">Agendar</button>
-        </div>
-        </div>
+    </main>
 
-
-
-    </div>
-    <div class="tab-pane fade" id="conteudo-profissionais" role="tabpanel" aria-labelledby="tab-profissionais">
-      <h4>Profissionais</h4>
-      <p>Equipe de profissionais que atuam aqui.</p>
-    </div>
-    <div class="tab-pane fade" id="conteudo-avaliacoes" role="tabpanel" aria-labelledby="tab-avaliacoes">
-      <h4>Avaliações</h4>
-      <p>Opiniões e avaliações de clientes.</p>
-    </div>
-    <div class="tab-pane fade" id="conteudo-meu-perfil" role="tabpanel" aria-labelledby="tab-meu-perfil">
-      <h4>Meu Perfil</h4>
-      <p>Informações pessoais e configurações do usuário.</p>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // === JAVASCRIPT PARA FUNCIONALIDADES === 
+        
+        // Variável global para armazenar o horário selecionado
+        let selectedTime = null;
+        
+        /**
+         * Função para selecionar um horário
+         * @param {string} time - O horário selecionado (ex: "09:00")
+         */
+        function selectTime(time) {
+            // Remove seleção anterior
+            document.querySelectorAll('.btn-time').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Adiciona seleção ao botão clicado
+            event.target.classList.add('selected');
+            
+            // Armazena o horário selecionado
+            selectedTime = time;
+            
+            // Mostra o alert de horário selecionado
+            const timeAlert = document.getElementById('timeAlert');
+            const selectedTimeText = document.getElementById('selectedTimeText');
+            
+            selectedTimeText.textContent = time;
+            timeAlert.style.display = 'block';
+            
+            // Scroll suave até o alert
+            timeAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        /**
+         * Função para agendar o horário selecionado
+         */
+        function bookAppointment() {
+            if (selectedTime) {
+                // Aqui você adicionaria a lógica para navegar para a página de agendamento
+                // ou fazer uma requisição para o backend
+                alert(`Redirecionando para agendamento do horário ${selectedTime}`);
+                
+                // Exemplo de como você poderia redirecionar para uma página de agendamento:
+                // window.location.href = `agendamento.html?horario=${selectedTime}`;
+            } else {
+                alert('Por favor, selecione um horário primeiro.');
+            }
+        }
+        
+        /**
+         * Função para inicializar eventos da página
+         */
+        function initializeApp() {
+            console.log('Aplicativo de agendamento inicializado');
+            
+            // Adiciona listeners para as abas
+            const tabTriggers = document.querySelectorAll('[data-bs-toggle="tab"]');
+            tabTriggers.forEach(trigger => {
+                trigger.addEventListener('shown.bs.tab', function (event) {
+                    console.log(`Aba ativa: ${event.target.getAttribute('data-bs-target')}`);
+                });
+            });
+            
+            // Reset da seleção de horário quando muda de aba
+            const servicosTab = document.getElementById('servicos-tab');
+            servicosTab.addEventListener('shown.bs.tab', function() {
+                // Reset seleção de horário
+                selectedTime = null;
+                document.querySelectorAll('.btn-time').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                document.getElementById('timeAlert').style.display = 'none';
+            });
+        }
+        
+        // Inicializa o aplicativo quando a página carrega
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        /**
+         * Função para simular navegação entre páginas/seções
+         * @param {string} section - Seção para navegar
+         */
+        function navigateTo(section) {
+            const tabButton = document.querySelector(`#${section}-tab`);
+            if (tabButton) {
+                const tab = new bootstrap.Tab(tabButton);
+                tab.show();
+            }
+        }
+        
+        /**
+         * Funções auxiliares para interações da interface
+         */
+        
+        // Simula clique em redes sociais
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.btn-outline-primary') && event.target.textContent.includes('Instagram')) {
+                alert('Abrindo Instagram: @barbeariapremium');
+            }
+            if (event.target.closest('.btn-outline-primary') && event.target.textContent.includes('Facebook')) {
+                alert('Abrindo página do Facebook');
+            }
+            if (event.target.closest('.btn-outline-success') && event.target.textContent.includes('WhatsApp')) {
+                alert('Abrindo WhatsApp: (11) 99999-9999');
+            }
+        });
+        
+        // Adiciona animação suave ao scroll para dispositivos móveis
+        if (window.innerWidth <= 768) {
+            const style = document.createElement('style');
+            style.textContent = `
+                html {
+                    scroll-behavior: smooth;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
 </body>
 </html>
