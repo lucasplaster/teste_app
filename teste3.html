@@ -16,6 +16,8 @@
             --text-color: #241f31; /* Texto escuro */
             --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s ease;
+            --whatsapp-color: #25D366;
+            --instagram-color: #E1306C;
         }
         
         body {
@@ -63,6 +65,27 @@
             background-color: #2a6bc8;
         }
         
+        /* Botões de redes sociais */
+        .btn-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: white;
+        }
+        
+        .btn-instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+        
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
         /* Abas de navegação - versão mobile */
         .nav-tabs-mobile {
             display: flex;
@@ -81,7 +104,9 @@
             font-weight: 500;
             padding: 10px 15px;
             font-size: 0.9rem;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             flex: 0 0 auto;
         }
         
@@ -101,6 +126,9 @@
             color: #777;
             font-weight: 500;
             padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .nav-tabs-desktop .nav-link.active {
@@ -166,6 +194,20 @@
                 display: flex;
             }
         }
+        
+        /* Seção de redes sociais */
+        .social-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -196,27 +238,27 @@
         <ul class="nav nav-tabs-mobile justify-content-start" id="myTabMobile" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab-mobile" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">
-                    <i class="bi bi-house-door me-1"></i><span class="d-none d-sm-inline">Início</span>
+                    <i class="bi bi-house-door"></i> Início
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="schedule-tab-mobile" data-bs-toggle="tab" data-bs-target="#schedule" type="button" role="tab">
-                    <i class="bi bi-clock me-1"></i><span class="d-none d-sm-inline">Horários</span>
+                    <i class="bi bi-clock"></i> Horários
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="professionals-tab-mobile" data-bs-toggle="tab" data-bs-target="#professionals" type="button" role="tab">
-                    <i class="bi bi-people me-1"></i><span class="d-none d-sm-inline">Profissionais</span>
+                    <i class="bi bi-people"></i> Profissionais
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="reviews-tab-mobile" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
-                    <i class="bi bi-star me-1"></i><span class="d-none d-sm-inline">Avaliações</span>
+                    <i class="bi bi-star"></i> Avaliações
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="profile-tab-mobile" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">
-                    <i class="bi bi-person me-1"></i><span class="d-none d-sm-inline">Perfil</span>
+                    <i class="bi bi-person"></i> Perfil
                 </button>
             </li>
         </ul>
@@ -225,27 +267,27 @@
         <ul class="nav nav-tabs-desktop justify-content-center" id="myTabDesktop" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab-desktop" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">
-                    <i class="bi bi-house-door me-2"></i>Início
+                    <i class="bi bi-house-door"></i> Início
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="schedule-tab-desktop" data-bs-toggle="tab" data-bs-target="#schedule" type="button" role="tab">
-                    <i class="bi bi-clock me-2"></i>Horários
+                    <i class="bi bi-clock"></i> Horários
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="professionals-tab-desktop" data-bs-toggle="tab" data-bs-target="#professionals" type="button" role="tab">
-                    <i class="bi bi-people me-2"></i>Profissionais
+                    <i class="bi bi-people"></i> Profissionais
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="reviews-tab-desktop" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
-                    <i class="bi bi-star me-2"></i>Avaliações
+                    <i class="bi bi-star"></i> Avaliações
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="profile-tab-desktop" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">
-                    <i class="bi bi-person me-2"></i>Perfil
+                    <i class="bi bi-person"></i> Perfil
                 </button>
             </li>
         </ul>
@@ -294,6 +336,23 @@
                                             <span class="badge bg-primary rounded-pill">R$ 120,00</span>
                                         </li>
                                     </ul>
+                                </div>
+                                
+                                <!-- Seção de redes sociais -->
+                                <div class="social-section mt-4">
+                                    <h5>Redes Sociais</h5>
+                                    <p class="text-muted mb-3">Siga-nos para ficar por dentro das novidades e promoções!</p>
+                                    
+                                    <div class="social-buttons">
+                                        <a href="https://wa.me/5511912345678" class="btn btn-social btn-whatsapp" target="_blank">
+                                            <i class="bi bi-whatsapp"></i>
+                                            WhatsApp
+                                        </a>
+                                        <a href="https://instagram.com/salaomoderno" class="btn btn-social btn-instagram" target="_blank">
+                                            <i class="bi bi-instagram"></i>
+                                            Instagram
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
