@@ -1,0 +1,246 @@
+ /* === ESTILOS GERAIS === */
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        /* === HEADER === */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo-establishment {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.025em;
+        }
+        
+        .powered-by {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        /* === NAVEGAÇÃO POR ABAS ESTILO GNOME/MACOS === */
+        .nav-tabs-modern {
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-tabs-modern .nav-link {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: #64748b;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+        
+        .nav-tabs-modern .nav-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .nav-tabs-modern .nav-link.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* === CARDS ESTILO MODERNO === */
+        .card-modern {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            background: white;
+        }
+        
+        .card-header-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 2rem;
+            border: none;
+        }
+        
+        .card-header-gradient.green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .card-header-gradient.purple {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+        
+        .card-header-gradient.yellow {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .card-header-gradient.indigo {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        }
+        
+        /* === BOTÕES ESTILO MACOS === */
+        .btn-time {
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #374151;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-time:hover {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+            color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .btn-time.selected {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-modern {
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .btn-modern:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* === CARDS DE PROFISSIONAIS === */
+        .professional-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .professional-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .professional-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        
+        /* === AVALIAÇÕES === */
+        .rating-star {
+            color: #fbbf24;
+        }
+        
+        .rating-star.empty {
+            color: #d1d5db;
+        }
+        
+        .review-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            background: white;
+            margin-bottom: 1rem;
+        }
+        
+        /* === PERFIL DO USUÁRIO === */
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* === SELEÇÃO DE HORÁRIO === */
+        .time-selection-alert {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* === BADGES === */
+        .badge-custom {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .badge-vip {
+            background: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+        }
+        
+        /* === RESPONSIVIDADE === */
+        @media (max-width: 768px) {
+            .nav-tabs-modern {
+                padding: 4px;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .nav-tabs-modern .nav-link {
+                padding: 10px 16px;
+                font-size: 0.875rem;
+            }
+            
+            .time-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
