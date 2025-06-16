@@ -63,9 +63,9 @@ $$
 
 ### Propriedades
 $$
-\log_b(x \cdot y) = \log_b(x) + \log_b(y) \\
-\log_b\left(\frac{x}{y}\right) = \log_b(x) - \log_b(y) \\
-\log_b(x^n) = n \cdot \log_b(x) \\
+\log_b(x \cdot y) = \log_b(x) + \log_b(y)
+\log_b\left(\frac{x}{y}\right) = \log_b(x) - \log_b(y)
+\log_b(x^n) = n \cdot \log_b(x) 
 \log_b(b) = 1 \quad ; \quad \log_b(1) = 0
 $$
 
